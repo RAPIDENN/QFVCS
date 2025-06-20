@@ -14,5 +14,6 @@ Create your own fork from the main repository:
 > https://github.com/RAPIDENN/QFVCS
 
 Clone it to your machine:
+
 ```bash
-git clone https://github.com/your-username/QFVCS.git
+git clone https://github.com/YOUR-GITHUB-USERNAME/QFVCS.git
