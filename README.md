@@ -36,4 +36,5 @@ QFVCS bridges quantum physics simulation and neural network optimization through
 We welcome forks and pull requests.  
 If you’ve got an idea to improve the system — from architecture to visualization — feel free to contribute!  
 Especially if you're working on new visualizations, fractal extensions, BitNet integrations, or wave-computation experiments.  
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md) to get started.
+See [See [CONTRIBUTING.md](https://github.com/RAPIDENN/QFVCS/blob/master/CONTRIBUTING.md)
+) to get started.
