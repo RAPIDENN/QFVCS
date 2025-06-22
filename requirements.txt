@@ -1,0 +1,8 @@
+- Python 3.7+
+- NumPy
+- PyQt5
+- PyOpenGL (optional, improves 3D performance)
+- SciPy
+- scikit-image (for marching cubes algorithm)
+- matplotlib (colormaps)
+- CuPy (optional, for GPU acceleration)

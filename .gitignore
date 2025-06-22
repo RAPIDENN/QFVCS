@@ -1,0 +1,16 @@
+.vercel/
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.env
+.vscode/
+.DS_Store
+.init/
+.cache/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.temp
