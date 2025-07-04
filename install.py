@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Copyright (C) 2024 Nathaniel (RAPIDENN)
+# Part of QFVCS - Licensed under GPL-3.0
+# See LICENSE and core.py for details
+
 import os
 import sys
 import time
