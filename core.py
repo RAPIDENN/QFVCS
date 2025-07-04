@@ -1,3 +1,7 @@
+# Copyright (C) 2024 Nathaniel (RAPIDENN)
+# Part of QFVCS - Licensed under GPL-3.0
+# See LICENSE and core.py for details
+
 """
 QFVCS
 -------------------------------
