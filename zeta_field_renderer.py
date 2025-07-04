@@ -49,8 +49,6 @@ def calculate_field_fast(x_flat, y_flat, t, params_scalar, params_array, r_array
     for i in range(num_points):
         x = x_flat[i]
         y = y_flat[i]
-
-        # Amplitud Fractal Adaptativa (A)
         # Note: Original sqrt(x^2+y^2) might be 0; using np.sqrt requires float inputs, ensure x, y are floats.
         dist_xy_sq = x**2 + y**2
         if dist_xy_sq < 1e-9: # Avoid division by near zero
@@ -66,27 +64,19 @@ def calculate_field_fast(x_flat, y_flat, t, params_scalar, params_array, r_array
         else:
              fractal_amp = A0 * (1.0 / r_term_A)**D * (1.0 + beta * I_t)**alpha
 
-        # Fase Estructurada con Respuesta Ultarrápida (F) - Simplified form inside njit
-        # Assuming xi_t and r are passed appropriately or are constants
-        # Original formula was Product(cos^2(...)); needs adaptation if r is an array
-        # Let's assume a sum/contribution from each r value if r_array is multiple values
         phase_structure_prod = 1.0
         for rl in r_array:
-             # Assuming structure is spatial * related to xi(t). Simplified x^2 + xi_t^2 -> x*xi_t here
-             # Full xi_t integration is better handled outside @njit if needed for animation over time
-             # Simplification for static t slice visualization: phase depends on x * phi_val (placeholder)
-             # phase_arg = pi * rl * np.sqrt(x**2 + (phi_val/1e12)**2) # using phi_val as xi proxy, adjust scaling
-             # Or simpler: depends just on x
+             
              phase_arg = pi * rl * x
              phase_structure_prod *= np.cos(phase_arg)**2
         phase_structure = phase_structure_prod
 
-        # Focalización Subciclo (G)
+        # Foc Subcicle (G)
         # Assuming x0_val, y0_val, sigma_val are scalar values for current time t
         Gauss = np.exp(-((x - x0_val)**2 + (y - y0_val)**2) / (sigma_val**2 + 1e-9)) # Add eps for stability
 
 
-        # Onda Portadora con Chirp de Attosegundos (W)
+        # Onda Chirp de Atts (W)
         # Assuming phi_val is scalar value for current time t
         k_t = omega0 / 299792458.0 # Use speed of light in m/s for k(t) relation. Adjust units. Omega0 is freq in? assuming Hz here.
         # If omega0 is in eV (energy), convert to angular freq: omega0_rad = omega0_eV * 1.602e-19 / 6.582e-16
@@ -96,14 +86,12 @@ def calculate_field_fast(x_flat, y_flat, t, params_scalar, params_array, r_array
         # Consider only the real part or split into cos/sin if complex not needed by consumer
         wave = np.exp(1j * wave_arg) # Return complex for fidelity
 
-        # Termino de Polarización No Lineal (P)
+    
         # Using simplified E_field(t) and rho(t) as scalar values at time t.
         # np.gradient is temporal; calculating here inside spatial loop needs refactoring.
         # Let's use a simplified, non-derivative version for @njit, just dependent on scalar E and rho at time t.
         P_t_simplified = chi3 * E_field_val**3 # Simplified
-        # Or include rho term without derivative: P_t_simplified = chi3 * E_field_val**3 + rho_val * E_field_val # Needs verification
-
-        # Combine components
+        
         # Original formula: Z_n+1 = Z_n + A * F * G * W * P
         # Interpreting as: the complex field at (x,y,t) is proportional to A*F*G*W*P
         # Omitting Z_n for single frame rendering
